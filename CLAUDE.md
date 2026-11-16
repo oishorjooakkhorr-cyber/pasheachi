@@ -1,3 +1,7 @@
+# PasheAchi
+
+The requirements for this project are in [docs/srs.md](docs/srs.md): features F1–F20, the MVC layout, the 12-table schema, the sprint plan and test cases T1–T20. Read it before building a feature. Use the feature IDs in commit messages (e.g. `F14: verify family OTP`). The Google Doc `PasheAchi_SRS` is the source of truth; `docs/srs.md` is a copy of it.
+
 <laravel-boost-guidelines>
 # Laravel Application
 
