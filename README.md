@@ -8,7 +8,7 @@ Built for CSE470 (Software Engineering), Section 5. The full requirements are in
 
 - PHP 8.3+ and Laravel 13 (MVC)
 - Blade templates styled with Bootstrap 5
-- MySQL 8
+- MariaDB 10.4 (the MySQL-compatible server bundled with XAMPP)
 - Laravel Breeze for login and registration
 
 ## Team
@@ -20,7 +20,7 @@ Built for CSE470 (Software Engineering), Section 5. The full requirements are in
 
 ## Setup
 
-You need PHP 8.3+, Composer, Node.js and a running MySQL server (Laragon or XAMPP).
+You need PHP 8.3+, Composer, Node.js and XAMPP with its MySQL (MariaDB) server running. The whole team uses XAMPP so everyone has the same database server.
 
 1. Install dependencies:
 
@@ -36,7 +36,7 @@ You need PHP 8.3+, Composer, Node.js and a running MySQL server (Laragon or XAMP
    php artisan key:generate
    ```
 
-3. Create an empty MySQL database called `pasheachi`. `.env.example` connects as `root` with no password; change `DB_USERNAME` and `DB_PASSWORD` in `.env` if yours differ. Then run the migrations:
+3. Create an empty database called `pasheachi`. `.env.example` connects as `root` with no password; change `DB_USERNAME` and `DB_PASSWORD` in `.env` if yours differ. Then run the migrations:
 
    ```bash
    php artisan migrate

@@ -6,7 +6,7 @@
 
 **Team:** Oishorjo Akkhor, Antik Mahmud, Wahida Hujaifa Satu, Mohammad Jawad Bin Mujib
 **Repository:** https://github.com/oishorjooakkhorr-cyber/pasheachi
-**Tech stack:** PHP 8.3+, Laravel 13 (MVC), Blade + Bootstrap 5, MySQL 8
+**Tech stack:** PHP 8.3+, Laravel 13 (MVC), Blade + Bootstrap 5, MariaDB 10.4 (MySQL-compatible, via XAMPP)
 
 ---
 
@@ -63,12 +63,12 @@ A new, standalone web product: an on-demand errand marketplace focused on elderl
 ### 2.4 Operating Environment
 
 - **Client side:** any modern browser, desktop or mobile; responsive layout.
-- **Server side:** PHP 8.3+, Laravel 13, MySQL 8, Composer. Node.js/npm only to build the Breeze auth pages (Vite).
-- **Development:** Laragon or XAMPP (or `php artisan serve`), Git, GitHub. Scheduler runs with `php artisan schedule:work` in development and a cron entry when deployed.
+- **Server side:** PHP 8.3+, Laravel 13, MariaDB 10.4 (the MySQL-compatible server bundled with XAMPP), Composer. Node.js/npm only to build the Breeze auth pages (Vite).
+- **Development:** XAMPP for the database, `php artisan serve` for the app, Git, GitHub. Scheduler runs with `php artisan schedule:work` in development and a cron entry when deployed.
 
 ### 2.5 Design and Implementation Constraints
 
-- **Stack:** PHP 8.3+ with Laravel 13, Blade styled with Bootstrap 5, MySQL 8. No MERN and no Python framework.
+- **Stack:** PHP 8.3+ with Laravel 13, Blade styled with Bootstrap 5, MariaDB 10.4 (MySQL-compatible, bundled with XAMPP). No MERN and no Python framework.
 - **MVC:**
   - **Models** (`app/Models`, Eloquent: `User`, `FamilyMember`, `Errand`, `Payment`, …) hold data and business rules, e.g. `calculateCost()`, `verifyOtp()`, `recalculateTrustLevel()`.
   - **Views** (`resources/views`, Blade) only display data and forms.
@@ -84,7 +84,7 @@ A new, standalone web product: an on-demand errand marketplace focused on elderl
 - The admin enters and updates currency rates; no live exchange-rate API.
 - Payments and bKash payouts are simulated; no real money moves.
 - The server can run the Laravel scheduler every minute.
-- **Dependencies:** Laravel 13; Laravel Breeze (Blade stack); `barryvdh/laravel-dompdf`; Bootstrap 5 (CDN); MySQL 8.
+- **Dependencies:** Laravel 13; Laravel Breeze (Blade stack); `barryvdh/laravel-dompdf`; Bootstrap 5 (CDN); MariaDB 10.4 (via XAMPP).
 
 ## 3. System Architecture
 
@@ -104,7 +104,7 @@ A new, standalone web product: an on-demand errand marketplace focused on elderl
 | Language | PHP 8.3+ on the server; HTML/CSS in Blade views |
 | Framework | Laravel 13: routing, controllers, Eloquent, validation, middleware, scheduler |
 | Frontend | Blade + Bootstrap 5 (forms, tables, cards, navbar). Server-rendered, no SPA |
-| Database | MySQL 8 with Eloquent, migrations and seeders (12 tables) |
+| Database | MariaDB 10.4 (MySQL-compatible, via XAMPP) with Eloquent, migrations and seeders (12 tables) |
 | Auth & roles | Laravel Breeze (Blade stack) + custom role middleware (client, runner, admin) |
 | Scheduling | Laravel Task Scheduler: recurring errands and reminders |
 | File storage | Local disk: proof photos on the **public** disk; NID and police-clearance files on a **private** disk |
@@ -166,7 +166,7 @@ All CRUD on the same entity by the same actor with the same logic counts as **on
 |-----------|-------------|
 | User interface | Responsive Blade + Bootstrap 5 pages with a separate dashboard per role. Validation errors next to each field; costs in BDT and the client's currency; errand status as a step tracker with colour-coded badges; runner screens designed for mobile. |
 | Hardware | None special. Runners need a phone camera. |
-| Software | MySQL 8; Laravel Breeze; `barryvdh/laravel-dompdf`; Laravel Storage; SMTP (Mailtrap in development) for optional email notifications. No external payment, SMS or exchange-rate API. |
+| Software | MariaDB 10.4 (MySQL-compatible); Laravel Breeze; `barryvdh/laravel-dompdf`; Laravel Storage; SMTP (Mailtrap in development) for optional email notifications. No external payment, SMS or exchange-rate API. |
 | Communication | HTTP (HTTPS when deployed) with standard form submissions. The tracking page polls the errand status every few seconds. All forms carry CSRF tokens. |
 
 ## 6. Non-Functional Requirements
@@ -177,7 +177,7 @@ All CRUD on the same entity by the same actor with the same logic counts as **on
 | Security | bcrypt passwords. Every route group requires login and the correct role; runners can change only errands assigned to them. CSRF on all forms, server-side validation, Eloquent against SQL injection. Uploads limited to **JPG/PNG/PDF up to 5 MB**; NID and police-clearance files are private and visible only to admins. Each OTP works once. |
 | Usability | A first-time client can post an errand in under 3 minutes. Plain-language labels; runner screens work on small phones; every status has a clear name and colour. |
 | Reliability | Money actions (hold, release, refund, withdrawal) run in **DB transactions**. Errand status can only move to the next allowed step. Running the recurring-errand job twice on the same day creates **no duplicates**. |
-| Scalability | Stateless controllers, all data in MySQL. Notifications and recurring jobs can move to queues. New districts and categories are data, not code. |
+| Scalability | Stateless controllers, all data in MariaDB. Notifications and recurring jobs can move to queues. New districts and categories are data, not code. |
 
 ## 7. Sprint Plan
 
